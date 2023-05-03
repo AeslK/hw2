@@ -71,12 +71,107 @@
 # Use `Model.destroy_all` code.
 # TODO!
 
+Studio.destroy_all
+Movie.destroy_all
+Actor.destroy_all
+Role.destroy_all
+ 
+
 # Generate models and tables, according to the domain model.
 # TODO!
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+studio1 = Studio.new
+studio1["name"] = "Warner Bros."
+studio1.save
+
+warner = Studio.find_by({"name" => "Warner Bros."})
+
+movie1 = Movie.new
+movie1["title"] = "Batman Begins"
+movie1["year_released"] = "2005"
+movie1["rated"] = "PG-13"
+movie1["studio_id"] = warner["id"]
+movie1.save
+
+movie2 = Movie.new
+movie2["title"] = "The Dark Knight"
+movie2["year_released"] = "2008"
+movie2["rated"] = "PG-13"
+movie2["studio_id"] = warner["id"]
+movie2.save
+
+movie3 = Movie.new
+movie3["title"] = "The Dark Knight Rises"
+movie3["year_released"] = "2012"
+movie3["rated"] = "PG-13"
+movie3["studio_id"] = warner["id"]
+movie3.save
+
+
+actor1 = Actor.new
+actor1["name"] = "Christian Bale"
+actor1.save
+
+actor2 = Actor.new
+actor2["name"] = "Michael Caine"
+actor2.save
+
+actor3 = Actor.new
+actor3["name"] = "Liam Neeson"
+actor3.save
+
+actor4 = Actor.new
+actor4["name"] = "Katie Holmes"
+actor4.save
+
+actor5 = Actor.new
+actor5["name"] = "Gary Oldman"
+actor5.save
+
+
+bale = Actor.find_by({"name" => "Christian Bale"})
+caine = Actor.find_by({"name" => "Michael Caine"})
+neeson = Actor.find_by({"name" => "Liam Neeson"})
+holmes = Actor.find_by({"name" => "Katie Holmes"})
+oldman = Actor.find_by({"name" => "Gary Oldman"})
+
+
+role1 = Role.new
+role1["movie_id"] = warner["id"]
+role1["actor_id"] = bale["id"]
+role1["character_name"] = "Bruce Wayne"
+role1.save
+
+role2 = Role.new
+role2["movie_id"] = warner["id"]
+role2["actor_id"] = caine["id"]
+role2["character_name"] = "Alfred"
+role2.save
+
+role3 = Role.new
+role3["movie_id"] = warner["id"]
+role3["actor_id"] = neeson["id"]
+role3["character_name"] = "Ra's Al Ghul"
+role3.save
+
+role4 = Role.new
+role4["movie_id"] = warner["id"]
+role4["actor_id"] = holmes["id"]
+role4["character_name"] = "Rachel Dawes"
+role4.save
+
+role5 = Role.new
+role5["movie_id"] = warner["id"]
+role5["actor_id"] = oldman["id"]
+role5["character_name"] = "Commissioner Gordon"
+role5.save
+
+
+
 
 # Prints a header for the movies output
 puts "Movies"
@@ -86,6 +181,17 @@ puts ""
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
 
+
+all_movies = Movie.all
+for coffee in all_movies
+    title = coffee["title"]
+    year_released = coffee["year_released"]
+    rated = coffee["rated"]
+    studio = coffee["studio_id"]
+    puts "#{title} #{year_released} #{rated} #{studio}"
+end 
+
+
 # Prints a header for the cast output
 puts ""
 puts "Top Cast"
@@ -94,3 +200,11 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+
+all_roles = Role.all
+for cookie in all_roles
+    movie = cookie["movie_id"]
+    actor = cookie["actor_id"]
+    character = cookie["character_name"]
+    puts "#{movie} #{actor} #{character}"
+end 
